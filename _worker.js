@@ -459,6 +459,11 @@ export default {
 			parameter.headers.Authorization = getReqHeader("Authorization");
 		}
 
+		console.log("Request Headers:");
+		request.headers.forEach((value, key) => {
+		    console.log(`${key}: ${value}`);
+		});
+
 		// 添加可能存在字段X-Amz-Content-Sha256
 		if (request.headers.has("X-Amz-Content-Sha256")) {
 			parameter.headers['X-Amz-Content-Sha256'] = getReqHeader("X-Amz-Content-Sha256");
