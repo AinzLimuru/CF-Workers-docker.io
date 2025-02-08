@@ -460,22 +460,15 @@ export default {
 		}
 
 
-		// 需要处理的字段数组
-		const fields = [
-		    "X-Amz-Content-Sha256",
-		    "Authorization",
-		    "x-amz-security-token",
-		    "X-Amz-Date"
-		];
-		
-		// 遍历字段数组
-		fields.forEach(field => {
-		    // 查找忽略大小写的匹配项
-		    const headerKey = Object.keys(request.headers).find(key => key.toLowerCase() === field.toLowerCase());
+		// 遍历 request.headers 的键
+		Object.keys(request.headers).forEach(key => {
+		    // 将键转换为小写以便忽略大小写匹配
+		    const lowerKey = key.toLowerCase();
 		    
-		    // 如果找到了匹配项
-		    if (headerKey) {
-		        parameter.headers[headerKey] = getReqHeader(headerKey);
+		    // 检查是否以 "x-amz" 开头或包含 "aws"
+		    if (lowerKey.startsWith("x-amz") || lowerKey.includes("aws")) {
+		        // 如果匹配，将值写入 parameter.headers 中，保持原始大小写格式
+		        parameter.headers[key] = getReqHeader(key);
 		    }
 		});
 
