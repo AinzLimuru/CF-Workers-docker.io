@@ -459,15 +459,21 @@ export default {
 			parameter.headers.Authorization = getReqHeader("Authorization");
 		}
 
-		console.log("Request Headers:");
-		request.headers.forEach((value, key) => {
-		    console.log(`${key}: ${value}`);
-		});
 
-		// 添加可能存在字段X-Amz-Content-Sha256
-		if (request.headers.has("X-Amz-Content-Sha256")) {
-			parameter.headers['X-Amz-Content-Sha256'] = getReqHeader("X-Amz-Content-Sha256");
-		}
+		// 定义需要处理的字段数组
+		const headerFields = [
+		    "X-Amz-Content-Sha256",
+		    "Authorization",
+		    "x-amz-security-token",
+		    "X-Amz-Date"
+		];
+		
+		// 遍历数组并处理每个字段
+		headerFields.forEach(field => {
+		    if (request.headers.has(field)) {
+		        parameter.headers[field] = getReqHeader(field);
+		    }
+		});
 
 		// 发起请求并处理响应
 		let original_response = await fetch(new Request(url, request), parameter);
