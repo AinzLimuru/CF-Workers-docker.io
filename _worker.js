@@ -460,20 +460,25 @@ export default {
 		}
 
 
-		// 定义需要处理的字段数组
-		const headerFields = [
+		// 需要处理的字段数组
+		const fields = [
 		    "X-Amz-Content-Sha256",
 		    "Authorization",
 		    "x-amz-security-token",
 		    "X-Amz-Date"
 		];
 		
-		// 遍历数组并处理每个字段
-		headerFields.forEach(field => {
-		    if (request.headers.has(field)) {
-		        parameter.headers[field] = getReqHeader(field);
+		// 遍历字段数组
+		fields.forEach(field => {
+		    // 查找忽略大小写的匹配项
+		    const headerKey = Object.keys(request.headers).find(key => key.toLowerCase() === field.toLowerCase());
+		    
+		    // 如果找到了匹配项
+		    if (headerKey) {
+		        parameter.headers[headerKey] = getReqHeader(headerKey);
 		    }
 		});
+
 
 		// 发起请求并处理响应
 		let original_response = await fetch(new Request(url, request), parameter);
