@@ -590,15 +590,7 @@ export default {
 
 		// 构造请求参数
 		let parameter = {
-			headers: {
-				'Host': hub_host,
-				'User-Agent': getReqHeader("User-Agent"),
-				'Accept': getReqHeader("Accept"),
-				'Accept-Language': getReqHeader("Accept-Language"),
-				'Accept-Encoding': getReqHeader("Accept-Encoding"),
-				'Connection': 'keep-alive',
-				'Cache-Control': 'max-age=0'
-			},
+			headers: new Headers(response.headers),
 			cacheTtl: 3600 // 缓存时间
 		};
 
