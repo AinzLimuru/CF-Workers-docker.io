@@ -590,7 +590,7 @@ export default {
 
 		// 构造请求参数
 		let parameter = {
-			headers: new Headers(response.headers),
+			headers: new Headers(request.headers),
 			cacheTtl: 3600 // 缓存时间
 		};
 
