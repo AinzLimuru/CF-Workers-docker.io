@@ -17,6 +17,7 @@ function routeByHosts(host) {
 		"k8s-gcr": "k8s.gcr.io",
 		"k8s": "registry.k8s.io",
 		"ghcr": "ghcr.io",
+		"fake-ghcr": "ghcr.io",
 		"cloudsmith": "docker.cloudsmith.io",
 		"nvcr": "nvcr.io",
 
